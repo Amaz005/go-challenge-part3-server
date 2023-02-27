@@ -1,0 +1,18 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - go build -o myapp
+
+# test:
+#   stage: test
+#   script:
+#     - go test ./...
+
+deploy:
+  stage: deploy
+  script:
+    - scp myapp user@myserver:/path/to/myapp
