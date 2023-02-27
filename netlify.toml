@@ -1,0 +1,13 @@
+[build]
+  command = "./build.sh"
+  functions = "functions"
+  publish = "public"
+
+[build.environment]
+  GO_IMPORT_PATH = "github.com/Amaz005/go-challenge-part3-server"
+  GO111MODULE = "on"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/gateway/:splat"
+  status = 200

@@ -1,4 +1,4 @@
-module server
+module github.com/Amaz005/go-challenge-part3-server
 
 go 1.18
 
