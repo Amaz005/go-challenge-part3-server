@@ -1,12 +1,15 @@
 package main
 
 import (
+    "flag"
 	godotenv "github.com/joho/godotenv"
 	"encoding/json"
 	"log"
 	"net/http"
     "os"
 	"github.com/rs/cors"
+	"github.com/apex/gateway"
+    "fmt"
 )
 
 func main() {
@@ -15,11 +18,20 @@ func main() {
         log.Fatal("Error loading .env file")
     }
 
+	port := flag.Int("port", -1, "specify a port to use http rather than AWS Lambda")
+    flag.Parse()
+    listener := gateway.ListenAndServe
+    portStr := "n/a"
+    if *port != -1 {
+        portStr = fmt.Sprintf(":%d", *port)
+        listener = http.ListenAndServe
+    }
+
 	http.HandleFunc("/hello", createHttpHandler(handleHello))
 	http.HandleFunc("/projects", createHttpHandler(handleProjects))
 	http.HandleFunc("/users", createHttpHandler(handleUsers))
 	http.HandleFunc("/commits", createHttpHandler(handleCommits))
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(listener(portStr, nil))
 }
 
 // Create a new HTTP handler using http.HandlerFunc and c.Handler
