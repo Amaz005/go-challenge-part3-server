@@ -1,5 +1,5 @@
 [build]
-  command = "./build.sh"
+  command = "sudo ./build.sh"
   functions = "functions"
   publish = "public"
 
