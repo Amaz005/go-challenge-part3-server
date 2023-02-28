@@ -2,21 +2,15 @@ package main
 
 import (
     "flag"
-	godotenv "github.com/joho/godotenv"
 	"encoding/json"
 	"log"
 	"net/http"
-    "os"
 	"github.com/rs/cors"
 	"github.com/apex/gateway"
     "fmt"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-        log.Fatal("Error loading .env file")
-    }
 
 	port := flag.Int("port", -1, "specify a port to use http rather than AWS Lambda")
     flag.Parse()
@@ -65,7 +59,7 @@ func handleProjects(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
-	req.Header.Add("Private-Token", os.Getenv("PRIVATE_TOKEN"))
+	req.Header.Add("Private-Token", "glpat-fXk2b-zcQNWsc9mjJsnb")
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -102,7 +96,7 @@ func handleUsers(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
         return
     }
-    req.Header.Add("Private-Token", os.Getenv("PRIVATE_TOKEN"))
+    req.Header.Add("Private-Token", "glpat-fXk2b-zcQNWsc9mjJsnb")
 
     resp, err := http.DefaultClient.Do(req)
     if err != nil {
@@ -137,7 +131,7 @@ func handleCommits(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
         return
     }
-    req.Header.Add("Private-Token", os.Getenv("PRIVATE_TOKEN"))
+    req.Header.Add("Private-Token", "glpat-fXk2b-zcQNWsc9mjJsnb")
 	
     resp, err := http.DefaultClient.Do(req)
 	if err != nil {
